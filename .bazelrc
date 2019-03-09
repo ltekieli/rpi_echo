@@ -1,0 +1,8 @@
+build --cxxopt='-std=c++17'
+build --action_env=WPA_SUPP_SSID
+build --action_env=WPA_SUPP_PASS
+
+build:rpi --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+build:rpi --crosstool_top=@bazel_buildroot_toolchains//toolchains/buildroot_linaro_armv7:toolchain
+build:rpi --cpu=armv7
+build:rpi --compiler=gcc

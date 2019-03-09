@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package echo;
+
+message Content {
+    string text = 1;
+}
+
+service Echo {
+  rpc Echo(Content) returns (Content) {}
+}

@@ -1,0 +1,9 @@
+[Unit]
+Description=Simple tcp echo server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/echo-boostd 8989
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Simple grpc echo service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/echo-grpcd 8990
+
+[Install]
+WantedBy=default.target
