@@ -1,9 +1,8 @@
 filegroup(
     name = "overlays",
     srcs = [
-        "//packaging:echo-boostd",
-        "//packaging:echo-grpcd",
-        "//packaging:wpa_supplicant_conf",
+        "//packaging:hostapd",
+        "//packaging:network_conf",
     ],
 )
 

@@ -7,8 +7,8 @@ load("@build_stack_rules_proto//cpp:cpp_grpc_library.bzl", "cpp_grpc_library")
 
 cpp_grpc_library(
     name = "cpp_echo_proto",
-    deps = [":echo"],
     has_services = True,
+    deps = [":echo"],
 )
 
 cc_binary(
@@ -16,10 +16,10 @@ cc_binary(
     srcs = [
         "echo_client.cpp",
     ],
+    visibility = ["//visibility:public"],
     deps = [
         ":cpp_echo_proto",
     ],
-    visibility = ["//visibility:public"],
 )
 
 cc_binary(
@@ -27,8 +27,8 @@ cc_binary(
     srcs = [
         "echo_server.cpp",
     ],
+    visibility = ["//visibility:public"],
     deps = [
         ":cpp_echo_proto",
     ],
-    visibility = ["//visibility:public"],
 )

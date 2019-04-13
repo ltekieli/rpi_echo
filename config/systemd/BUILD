@@ -9,3 +9,9 @@ filegroup(
     srcs = ["echo-grpcd.service"],
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "hostapd-service",
+    srcs = ["hostapd.service"],
+    visibility = ["//visibility:public"],
+)
