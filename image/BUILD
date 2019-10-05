@@ -1,42 +1,49 @@
+load("//tools:partition.bzl", "partition_ext2")
+load("//tools:image.bzl", "image")
+
+
 filegroup(
     name = "overlays",
     srcs = [
+        "@buildroot_linaro_armv7_system//:rootfs",
         "//packaging:hostapd",
         "//packaging:network_conf",
     ],
 )
 
-genrule(
-    name = "create_image",
+partition_ext2(
+    name = "rootfs",
     srcs = [
-        "genimage.cfg",
         ":overlays",
-        "@buildroot_linaro_armv7_system//:boot",
-        "@buildroot_linaro_armv7_system//:rootfs",
     ],
-    outs = ["sdcard.img"],
-    cmd = "$(location create_image.sh) \
-                -g $(location genimage.cfg) \
-                -r $(location @buildroot_linaro_armv7_system//:rootfs) \
-                -b $(location @buildroot_linaro_armv7_system//:boot) \
-                -o $(location sdcard.img) \
-                $(locations :overlays)",
+    psize = "125000",
     tags = [
         "manual",
     ],
-    tools = ["create_image.sh"],
+)
+
+image(
+    name = "sdcard",
+    config = "genimage.cfg",
+    srcs = [
+        "@buildroot_linaro_armv7_system//:boot",
+        ":rootfs.ext2",
+    ],
+    tags = [
+        "manual",
+    ],
 )
 
 sh_binary(
-    name = "deploy_image",
-    srcs = [
-        "deploy_image.sh",
-    ],
-    args = [
-        "-i $(location :create_image)",
-    ],
-    data = [":create_image"],
-    tags = [
-        "manual",
-    ],
+   name = "deploy",
+   srcs = [
+       "//tools:deploy.sh",
+   ],
+   args = [
+       "-i $(location :sdcard.img)",
+   ],
+   data = [":sdcard.img"],
+   tags = [
+       "manual",
+   ],
 )

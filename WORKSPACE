@@ -12,7 +12,7 @@ boost_deps()
 
 git_repository(
     name = "bazel_buildroot_toolchains",
-    commit = "1ed0f74e31eca3d7a748ccb57f9d78d149947ec0",
+    commit = "12b8647392efc21c469245f5ef64a5b4977c52fa",
     remote = "https://github.com/ltekieli/bazel-buildroot-toolchains.git",
 )
 
