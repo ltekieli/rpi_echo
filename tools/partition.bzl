@@ -1,4 +1,4 @@
-def _partition_ext2(ctx):
+def _partition_ext4(ctx):
     args = ctx.actions.args()
     args.add("-o")
     args.add(ctx.outputs.out)
@@ -12,8 +12,8 @@ def _partition_ext2(ctx):
         arguments = [args],
     )
 
-partition_ext2 = rule(
-    implementation = _partition_ext2,
+partition_ext4 = rule(
+    implementation = _partition_ext4,
     attrs = {
         "srcs": attr.label_list(allow_files = True),
         "psize": attr.string(),
@@ -25,6 +25,6 @@ partition_ext2 = rule(
         ),
     },
     outputs = {
-        "out": "%{name}.ext2",
+        "out": "%{name}.ext4",
     },
 )

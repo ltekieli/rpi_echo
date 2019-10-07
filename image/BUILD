@@ -1,4 +1,4 @@
-load("//tools:partition.bzl", "partition_ext2")
+load("//tools:partition.bzl", "partition_ext4")
 load("//tools:image.bzl", "image")
 
 
@@ -6,17 +6,18 @@ filegroup(
     name = "overlays",
     srcs = [
         "@buildroot_linaro_armv7_system//:rootfs",
+        "//packaging:echo-grpcd",
         "//packaging:hostapd",
         "//packaging:network_conf",
     ],
 )
 
-partition_ext2(
+partition_ext4(
     name = "rootfs",
     srcs = [
         ":overlays",
     ],
-    psize = "125000",
+    psize = "256000",
     tags = [
         "manual",
     ],
@@ -27,7 +28,7 @@ image(
     config = "genimage.cfg",
     srcs = [
         "@buildroot_linaro_armv7_system//:boot",
-        ":rootfs.ext2",
+        ":rootfs.ext4",
     ],
     tags = [
         "manual",
